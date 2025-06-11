@@ -1,0 +1,19 @@
+body {
+    /* background-color : black;
+    color : white; */
+}
+
+.left{
+    width : 25vw;
+}
+
+.right{
+    width : 75vw;
+}
+
+.home ul li{
+    display : flex;
+    gap : 3px;
+    width : 14px;
+    list-style: none;
+}

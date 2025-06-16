@@ -14,3 +14,54 @@
 .items-center{
     align-items : center;
 }
+
+.bg-black{
+    background-color: black;
+    color : white;
+}
+
+.invert{
+    filter : invert(1);
+}
+
+.bg-grey{
+    background-color: #1f1f1f;
+}
+
+.rounded {
+    border-radius : 7px;
+}
+
+.m-1{
+    margin : 5px;
+}
+
+.p-1{
+    padding : 10px;
+}
+
+/* For Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 8px;               /* Scrollbar width */
+  height: 8px;              /* For horizontal scrollbars */
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;      /* Track background (dark gray) */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #444;   /* Scroll thumb color (medium gray) */
+  border-radius: 10px;
+  border: 2px solid #1e1e1e; /* Adds space between track and thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #666;   /* Slightly lighter on hover */
+}
+
+/* Optional: Scrollbar corner (for both axes) */
+::-webkit-scrollbar-corner {
+  background: #1e1e1e;
+}
+

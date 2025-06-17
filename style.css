@@ -96,7 +96,7 @@ body {
   gap: 10px;
   flex-wrap: wrap;
   margin: 30px;
-  max-height: 69vh;
+  max-height: 60vh;
   overflow-y: auto;
 }
 
@@ -199,6 +199,7 @@ body {
 
 .hamburger {
   display: none;
+  cursor : pointer;
 }
 
 .hamburgerContainer {
@@ -295,6 +296,11 @@ body {
   justify-content: center;
   align-items: center;
   gap: 12px;
+  cursor : pointer;
+}
+
+.range input{
+    cursor : pointer;
 }
 
 .abovebar {

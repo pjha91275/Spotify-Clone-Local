@@ -79,10 +79,13 @@ async function displayAlbums() {
   div.innerHTML = response;
   let anchors = div.getElementsByTagName("a");
   let cardContainer = document.querySelector(".cardContainer");
-  let array = Array.from(anchors);
+  let array = Array.from(anchors).slice(3);
+  console.log(array);
+  console.log(anchors);
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
-    if (e.href.includes("songs/f")) {
+    if (e.href.includes("/songs")) {
+      console.log(e);
       let folder = e.href.split("/").slice(-3)[0];
       //Get the metadata of the folder
       let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
@@ -115,7 +118,7 @@ async function displayAlbums() {
 
 async function main() {
   //Get the list of all songs
-  await getSongs("songs/fncs");
+  await getSongs("songs/ncs");
   playMusic(songs[0], true);
 
   //Display the albums on the page
@@ -188,6 +191,9 @@ next.addEventListener("click", () => {
 document.querySelector(".range").getElementsByTagName("input")[0].addEventListener("change", (e) => {
     console.log("Setting volume to", e.target.value);
     currentSong.volume = parseInt(e.target.value) / 100;
+    if(currentSong.volume>0){
+       document.querySelector(".volume > img").src = document.querySelector(".volume > img").src.replace("mute.svg","volume.svg") ;
+    }
   });
 
 //add an event listener to mute the volume

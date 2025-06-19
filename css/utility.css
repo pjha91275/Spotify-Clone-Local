@@ -24,6 +24,10 @@
     filter : invert(1);
 }
 
+.color-grey{
+  color : #b3b3b3;
+}
+
 .bg-grey{
     background-color: #1f1f1f;
 }

@@ -8,87 +8,94 @@
     <link rel="stylesheet" href="css/utility.css" />
   </head>
   <body>
-    <div class="container flex bg-black">
-      <div class="left">
-        <div class="close">
-          <img class = "invert" width = "40px" src = "img/close.svg" alt = "">
-        </div>
-        <div class="home bg-grey rounded m-1 p-1">
-          <div class="logo"><img width ="110" class="invert" src="img/logo.svg" alt="" /></div>
-          <ul>
-            <li><img class="invert" src="img/home.svg" alt="home" />Home</li>
-            <li><img class="invert" src="img/search.svg" alt="search" />Search</li>
-          </ul>
-        </div>
-
-        <div class="library bg-grey rounded m-1 p-1">
-          <div class="heading">
-            <img class="invert" src="img/playlist.svg" alt="">
-            <h2>Your Library</h2>
-          </div>
-
-          <div class="songList">
-            <ul>
-              
-            </ul>
-          </div>
-
-          <div class="footer">
-          <div>
-            <a href="https://www.spotify.com/in-en/legal/">
-              <span>Legal</span>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.spotify.com/in-en/safetyandprivacy/">
-              <span>Safety & Privacy Center</span>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.spotify.com/in-en/legal/privacy-policy/">
-              <span>Privacy Policy</span>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.spotify.com/in-en/legal/cookies-policy/">
-              <span>Cookies</span>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3">
-              <span>About Ads</span>
-            </a>
-          </div>
-          <div>
-            <a href="https://www.spotify.com/in-en/accessibility/">
-              <span>Accessibility</span>
-            </a>
-          </div>
-          </div>
-
-        </div>
-      </div>
-
-      <div class="right bg-grey rounded">
+    <div class="container bg-black">
         <div class="header">
+            <div class="left-navbar flex">
+              <div class="logo"><img width ="35" class="invert" src="img/logo.svg" alt="" /></div>
+              <div class="home" ><img width ="28" class="invert" src="img/home.svg" alt="home" /></div>
+              <div class="searchbar flex">
+                  <img width ="25" class="invert searchIcon" src="img/search.svg" alt="search" />
+                  <input class = "searchInput color-grey" type = "text" placeholder="What do you want to play?"/>
+                  <div class="line" style = "width : 0.4%; height : 70%; background-color: rgb(110,110,110);"></div>
+                  <img width ="25" class="browse" src="img/browse.svg" alt="browse" />
+              </div>
+            </div>
+        
             <div class="nav">
               <div class="hamburgerContainer">
                 <img class = "invert hamburger" src = "img/hamburger.svg" alt = "">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#ffffff" fill="none">
-                  <path d="M15 6C15 6 9.00001 10.4189 9 12C8.99999 13.5812 15 18 15 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-                
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#000000" fill="none">
-                  <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                </svg>
               </div>
-
             </div>
-            <div class="buttons">
-                <button class = "signupbtn">Sign Up</button>
+
+            <div class="right-navbar flex">
+              <div class="left-section flex">
+                 <div class="premium color-grey">Premium</div>
+                <div class="support color-grey">Support</div>
+                <div class="download color-grey">Download</div>
+              </div>
+                <div class="line" style = "width : 2px; height : 20px; background-color: white;"></div>
+               <div class="right-section flex">
+                <div class="installApp flex color-grey"><img class = "installIcon" src = "img/install.svg" alt ="">Install App </div>
+                <button class = "signupbtn color-grey">Sign Up</button>
                 <button class = "loginbtn">Login</button>
+               </div>  
             </div>
         </div>
+
+      <div class = "below-header flex">
+        <div class="left">
+          <div class="close">
+            <img class = "invert" width = "40px" src = "img/close.svg" alt = "">
+          </div>
+          <div class="library bg-grey rounded p-1">
+            <div class="heading">
+              <img class="invert" src="img/playlist.svg" alt="">
+              <h2>Your Library</h2>
+            </div>
+
+            <div class="songList">
+              <ul>
+                
+              </ul>
+            </div>
+
+            <div class="footer">
+            <div>
+              <a href="https://www.spotify.com/in-en/legal/">
+                <span>Legal</span>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.spotify.com/in-en/safetyandprivacy/">
+                <span>Safety & Privacy Center</span>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.spotify.com/in-en/legal/privacy-policy/">
+                <span>Privacy Policy</span>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.spotify.com/in-en/legal/cookies-policy/">
+                <span>Cookies</span>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.spotify.com/in-en/legal/privacy-policy/#s3">
+                <span>About Ads</span>
+              </a>
+            </div>
+            <div>
+              <a href="https://www.spotify.com/in-en/accessibility/">
+                <span>Accessibility</span>
+              </a>
+            </div>
+            </div>
+
+        </div>
+        </div>
+
+      <div class="right bg-grey rounded">
 
         <div class="spotifyPlaylists">
           <h1>Spotify Playlists</h1>
@@ -126,7 +133,8 @@
           </div>
         </div>
       </div>
-    </div>
-    <script src = "js/script.js"></script>
+    </div
+  </div>
+  <script src = "js/script.js"></script>
   </body>
 </html>

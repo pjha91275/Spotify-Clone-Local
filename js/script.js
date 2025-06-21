@@ -16,9 +16,7 @@ function formatSecondsToMinutes(seconds) {
 }
 
 async function getSongs(folder) {
-  console.log(folder)
   currSongFolder = folder;
-  console.log(currSongFolder);
   let a = await fetch(`http://127.0.0.1:5500/${folder}/`);
   let response = await a.text();
   let div = document.createElement("div");
@@ -26,10 +24,9 @@ async function getSongs(folder) {
   let as = div.getElementsByTagName("a");
   songs = [];
   for (let index = 0; index < as.length; index++) {
-    const element = as[index];
+    let element = as[index];
     if (element.href.endsWith(".mp3.preview")) {
       songs.push(element.href.split(`/${folder}/`)[1].replace(".preview", "").replaceAll("%20", " "));
-      console.log(songs);
     }
   }
 
@@ -37,17 +34,14 @@ async function getSongs(folder) {
   let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
   songUL.innerHTML = "";
   for (const song of songs) {
-    console.log(song)
-    console.log(currSongFolder)
+    console.log(`/${currSongFolder}/${song.replaceAll("%20"," ")}`)
     let audio = new Audio(`/${currSongFolder}/${song.replaceAll("%20"," ")}`);
-    console.log(audio.src)
     currThumbnailFolder = currSongFolder.replace("songs", "songsThumbnail");
-    console.log(currThumbnailFolder)
     audio.addEventListener("loadedmetadata", () => {
       songUL.innerHTML =songUL.innerHTML +`<li><img class ="thumbnail" src = "${currThumbnailFolder}/${song.replaceAll("%20"," ").replace(".mp3", "")}.jpeg" alt = "">
                 <div class="info">
-                  <div>${song.replace(".mp3", "")}</div>
-                  <div>${currSongFolder.replace("songs/","")}</div>
+                  <div class = "song">${song.replace(".mp3", "")}</div>
+                  <div class = "artist">${currSongFolder.replace("songs/","").replaceAll("_"," ")}</div>
                 </div>
                 <div class="durationPlay">
                   <div class="duration">${formatSecondsToMinutes(
@@ -78,7 +72,6 @@ const playMusic = (track, pause = false) => {
     play.src = "SVG/pause.svg";
   }
 
-  console.log(`${currSongFolder}`);
   document.querySelector(".songThumbnail").innerHTML = `<img src = "${currThumbnailFolder}/${track.replace(".mp3","" )}.jpeg" alt = ""></img>`;
   document.querySelector(".songName").innerHTML = decodeURI(track).replace(".mp3","");
   document.querySelector(".songTime").innerHTML = "0:0/0:0";
@@ -128,7 +121,7 @@ async function displayAlbums() {
 
 async function main() {
   //Get the list of all songs
-  await getSongs("songs/Arijit");
+  await getSongs("songs/Arijit_Singh");
   playMusic(songs[0], true);
 
   //Display the albums on the page
@@ -136,7 +129,7 @@ async function main() {
 
   //attac
 
-  //Attach an event listener to play ,previous & next
+  //Attach an event listener to play 
   play.addEventListener("click", () => {
     if (currentSong.paused) {
       currentSong.play();
@@ -160,7 +153,6 @@ async function main() {
     //Auto start next song when one ends & play the playlist in loop
     if (currentSong.ended) {
       let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-      console.log(index);
       if (index + 1 < songs.length) {
         playMusic(songs[index + 1]);
       } else {
@@ -192,8 +184,7 @@ document.querySelector(".close").addEventListener("click", () => {
 //add event listener to previous & repeat even after the playlist comes to start point
 previous.addEventListener("click", () => {
   currentSong.pause();
-  console.log("Next clicked");
-  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
+  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0].replaceAll("%20"," "));
   if (index - 1 >= 0) {
     playMusic(songs[index - 1]);
   } else {
@@ -204,9 +195,7 @@ previous.addEventListener("click", () => {
 //add event listener to next & repeat even after the playlist ends
 next.addEventListener("click", () => {
   currentSong.pause();
-  console.log("Next clicked");
-  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0]);
-  console.log(index);
+  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0].replaceAll("%20"," "));
   if (index + 1 < songs.length) {
     playMusic(songs[index + 1]);
   } else {
@@ -270,5 +259,11 @@ document.querySelector(".volume > img").addEventListener("click", (e) => {
     currentSong.volume = 0;
     console.log(currentSong.volume);
     document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
+  }
+  else{
+     e.target.src = "SVG/lowVolume.svg";
+    currentSong.volume = 0.5;
+    console.log(currentSong.volume);
+    document.querySelector(".range").getElementsByTagName("input")[0].value = 50;
   }
 });

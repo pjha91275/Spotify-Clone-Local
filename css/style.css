@@ -173,6 +173,20 @@ body {
   height : 89.2vh;
 }
 
+.info > *{
+  padding-top: 5px;
+}
+
+.song{
+  font-size: 1rem;
+  width : 9vw;
+}
+
+.artist{
+  font-size: 0.8rem;
+  width : 9vw;
+}
+
 .right {
   width: 75vw;
   height : 91.5vh;
@@ -209,7 +223,7 @@ body {
 }
 
 .songList {
-  height: 544px;
+  height: 685px;
   overflow: auto;
   margin-bottom: 44px;
 }
@@ -238,7 +252,7 @@ body {
   cursor: pointer;
   padding: 12px 0;
   border: 1px solid white;
-  margin: 12px 0;
+  margin: 11px 0;
   padding: 13px;
   border-radius: 5px;
   background-color: #1f1f1f;
@@ -254,9 +268,12 @@ body {
   font-size: 17px;
   width: 200px;
   display: flex;
+  align-items: center;
   flex-direction: column;
   gap: 10px;
 }
+
+
 
 .info div {
   word-break: break-all;

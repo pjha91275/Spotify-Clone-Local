@@ -41,12 +41,6 @@
           </div>
         </div>
 
-        <div class="nav">
-          <div class="hamburgerContainer">
-            <img class="invert hamburger" src="SVG/hamburger.svg" alt="" />
-          </div>
-        </div>
-
         <div class="right-navbar flex">
           <div class="left-section flex">
             <div class="premium color-grey">Premium</div>
@@ -70,12 +64,16 @@
 
       <div class="below-header flex">
         <div class="left">
+          <div class="nav">
+          <div class="hamburgerContainer">
+            <img class="invert hamburger" src="SVG/hamburger.svg" alt="" />
+          </div>
+        </div>
           <div class="close">
             <img class="invert" width="40px" src="SVG/close.svg" alt="" />
           </div>
           <div class="library bg-grey rounded p-1">
             <div class="heading">
-              <img class="invert" src="SVG/playlist.svg" alt="" />
               <h2>Your Library</h2>
             </div>
 
@@ -122,11 +120,11 @@
 
         <div class="right bg-grey rounded">
           <div class="spotifyPlaylists">
-            <h1>Spotify Playlists</h1>
+            <div class="title">
+                <h2>Trending Playlists</h2>
+            </div>
             <div class="cardContainer"></div>
           </div>
-        </div>
-      </div>
 
       <div class="playbar">
         <div class="seekbar">
@@ -139,18 +137,19 @@
           <div class="songName"></div>
           </div>
           <div class="songbuttons">
-            <img width="35" id="previous" src="SVG/prevsong.svg" alt="" />
-            <img width="35" id="play" src="SVG/play.svg" alt="" />
-            <img width="35" id="next" src="SVG/nextsong.svg" alt="" />
+            <div class="previous"><img width="40" id="previous" src="SVG/prevsong.svg" alt="" /></div>
+            <div class="play"><img width="40" id="play" src="SVG/play.svg" alt="" /></div>
+            <div class="next"><img width="40" id="next" src="SVG/nextsong.svg" alt="" /></div>
           </div>
           <div class="timevol">
             <div class="songTime"></div>
             <div class="volume">
-              <img width="25" src="SVG/lowVolume.svg" alt="" />
+              <img width="35" src="SVG/lowVolume.svg" alt="" />
               <div class="range">
                 <input type="range" name="volume" alt="" />
               </div>
             </div>
+          </div>
           </div>
         </div>
       </div>

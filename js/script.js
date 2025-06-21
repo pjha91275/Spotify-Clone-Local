@@ -44,7 +44,7 @@ async function getSongs(folder) {
     currThumbnailFolder = currSongFolder.replace("songs", "songsThumbnail");
     console.log(currThumbnailFolder)
     audio.addEventListener("loadedmetadata", () => {
-      songUL.innerHTML =songUL.innerHTML +`<li><img src = "${currThumbnailFolder}/${song.replaceAll("%20"," ").replace(".mp3", "")}.jpeg" alt = "">
+      songUL.innerHTML =songUL.innerHTML +`<li><img class ="thumbnail" src = "${currThumbnailFolder}/${song.replaceAll("%20"," ").replace(".mp3", "")}.jpeg" alt = "">
                 <div class="info">
                   <div>${song.replace(".mp3", "")}</div>
                   <div>${currSongFolder.replace("songs/","")}</div>
@@ -79,7 +79,7 @@ const playMusic = (track, pause = false) => {
   }
 
   console.log(`${currSongFolder}`);
-  document.querySelector(".songThumbnail").innerHTML = `<img class = "invert" src = "${currThumbnailFolder}/${track.replace(".mp3","" )}.jpeg" alt = ""></img>`;
+  document.querySelector(".songThumbnail").innerHTML = `<img src = "${currThumbnailFolder}/${track.replace(".mp3","" )}.jpeg" alt = ""></img>`;
   document.querySelector(".songName").innerHTML = decodeURI(track).replace(".mp3","");
   document.querySelector(".songTime").innerHTML = "0:0/0:0";
 };
@@ -128,11 +128,13 @@ async function displayAlbums() {
 
 async function main() {
   //Get the list of all songs
-  await getSongs("songs/Arijit Singh");
+  await getSongs("songs/Arijit");
   playMusic(songs[0], true);
 
   //Display the albums on the page
   displayAlbums();
+
+  //attac
 
   //Attach an event listener to play ,previous & next
   play.addEventListener("click", () => {

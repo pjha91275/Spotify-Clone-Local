@@ -185,7 +185,7 @@ previous.addEventListener("click", () => {
   if (index - 1 >= 0) {
     playMusic(songs[index - 1]);
   } else {
-    playMusic(songs[(songs.length-1)]);
+    playMusic(songs[(songs.length - 1)]);
   }
 });
 

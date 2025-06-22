@@ -47,20 +47,19 @@ async function getSongs(folder) {
                   <div class="duration">${formatSecondsToMinutes(
                     Math.floor(audio.duration || 0)
                   )}</div>
-                  <img class = "invert play" src = "SVG/play.svg" alt = "">
+                  <img class = "invert play-Library" src = "SVG/play.svg" alt = "">
                 </div></li>`;
-    });
-  }
 
-  //Attach an event listener to each song
-  Array.from(
-    document.querySelector(".songList").getElementsByTagName("li")
-  ).forEach((e) => {
-    e.addEventListener("click", (element) => {
-      console.log(e.querySelector(".info").firstElementChild.innerHTML);
-      playMusic(e.querySelector(".info").firstElementChild.innerHTML.trim());
-    });
-  });
+                //Attach an event listener to each song
+                console.log("entered");
+                Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach((e) => {
+                e.addEventListener("click", (element) => {
+                console.log(e.querySelector(".info").firstElementChild.innerHTML);
+                playMusic(e.querySelector(".info").firstElementChild.innerHTML + ".mp3");
+                });
+              });
+      });
+  }
 
   return songs;
 }
@@ -95,8 +94,8 @@ async function displayAlbums() {
       cardContainer.innerHTML =
         cardContainer.innerHTML +
         `<div data-folder = "${folder}" class="card">
-              <div class="play">
-                <div class ="playButton">
+              <div class="play-cardCase">
+                <div class ="play-card">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20" fill="black" >
                 <polygon points="8,5 8,19 19,12" />
                 </svg>
@@ -126,19 +125,6 @@ async function main() {
 
   //Display the albums on the page
   displayAlbums();
-
-  //attac
-
-  //Attach an event listener to play 
-  play.addEventListener("click", () => {
-    if (currentSong.paused) {
-      currentSong.play();
-      play.src = "SVG/pause.svg";
-    } else {
-      currentSong.pause();
-      play.src = "SVG/play.svg";
-    }
-  });
 
   // listen for timeupdate event
   currentSong.addEventListener("timeupdate", () => {
@@ -180,6 +166,17 @@ document.querySelector(".hamburger").addEventListener("click", () => {
 document.querySelector(".close").addEventListener("click", () => {
   document.querySelector(".left").style.left = "-120%";
 });
+  
+//Attach an event listener to play to play & pause song
+  play.addEventListener("click", () => {
+    if (currentSong.paused) {
+      currentSong.play();
+      play.src = "SVG/pause.svg";
+    } else {
+      currentSong.pause();
+      play.src = "SVG/play.svg";
+    }
+  });
 
 //add event listener to previous & repeat even after the playlist comes to start point
 previous.addEventListener("click", () => {
@@ -244,26 +241,3 @@ document.querySelector(".volume > img").addEventListener("click", (e) => {
     document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
   }
 })
-
-  document.querySelector(".volume > img").addEventListener("dblclick", (e) => {
-  console.log(e.target);
-  if(e.target.src.includes("SVG/mute.svg")){
-    e.target.src = "SVG/highVolume.svg";
-    currentSong.volume = 1;
-    document
-      .querySelector(".range")
-      .getElementsByTagName("input")[0].value = 100;
-  }
-  else if(e.target.src.includes("SVG/highVolume.svg")){
-    e.target.src = "SVG/mute.svg";
-    currentSong.volume = 0;
-    console.log(currentSong.volume);
-    document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
-  }
-  else{
-     e.target.src = "SVG/lowVolume.svg";
-    currentSong.volume = 0.5;
-    console.log(currentSong.volume);
-    document.querySelector(".range").getElementsByTagName("input")[0].value = 50;
-  }
-});

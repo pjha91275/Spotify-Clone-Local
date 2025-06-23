@@ -1,5 +1,3 @@
-console.log("Lets write Javascript");
-
 let currentSong = new Audio();
 let songs;
 let currSongFolder;
@@ -26,39 +24,58 @@ async function getSongs(folder) {
   for (let index = 0; index < as.length; index++) {
     let element = as[index];
     if (element.href.endsWith(".mp3.preview")) {
-      songs.push(element.href.split(`/${folder}/`)[1].replace(".preview", "").replaceAll("%20", " "));
+      songs.push(
+        element.href
+          .split(`/${folder}/`)[1]
+          .replace(".preview", "")
+          .replaceAll("%20", " ")
+      );
     }
   }
 
   // show all the songs in the playlist
-  let songUL = document.querySelector(".songList").getElementsByTagName("ul")[0];
+  let songUL = document
+    .querySelector(".songList")
+    .getElementsByTagName("ul")[0];
   songUL.innerHTML = "";
   for (const song of songs) {
-    console.log(`/${currSongFolder}/${song.replaceAll("%20"," ")}`)
-    let audio = new Audio(`/${currSongFolder}/${song.replaceAll("%20"," ")}`);
-    currThumbnailFolder = currSongFolder.replace("songs", "songsThumbnail");
-    audio.addEventListener("loadedmetadata", () => {
-      songUL.innerHTML =songUL.innerHTML +`<li><img class ="thumbnail" src = "${currThumbnailFolder}/${song.replaceAll("%20"," ").replace(".mp3", "")}.jpeg" alt = "">
+    async function createSongListItem(song, currSongFolder) {
+      return new Promise((resolve) => {
+        let audio = new Audio(
+          `/${currSongFolder}/${song.replaceAll("%20", " ")}`
+        );
+        currThumbnailFolder = currSongFolder.replace("songs", "songsThumbnail");
+        audio.addEventListener("loadedmetadata", () => {
+          let li = document.createElement("li");
+          li.innerHTML = `<img class ="thumbnail" src = "${currThumbnailFolder}/${song
+            .replaceAll("%20", " ")
+            .replace(".mp3", "")}.jpeg" alt = "">
                 <div class="info">
                   <div class = "song">${song.replace(".mp3", "")}</div>
-                  <div class = "artist">${currSongFolder.replace("songs/","").replaceAll("_"," ")}</div>
+                  <div class = "artist">${currSongFolder
+                    .replace("songs/", "")
+                    .replaceAll("_", " ")}</div>
                 </div>
                 <div class="durationPlay">
                   <div class="duration">${formatSecondsToMinutes(
                     Math.floor(audio.duration || 0)
                   )}</div>
                   <img class = "invert play-Library" src = "SVG/play.svg" alt = "">
-                </div></li>`;
+                </div>`;
 
-                //Attach an event listener to each song
-                console.log("entered");
-                Array.from(document.querySelector(".songList").getElementsByTagName("li")).forEach((e) => {
-                e.addEventListener("click", (element) => {
-                console.log(e.querySelector(".info").firstElementChild.innerHTML);
-                playMusic(e.querySelector(".info").firstElementChild.innerHTML + ".mp3");
-                });
-              });
+          //Attach an event listener to each song
+          li.addEventListener("click", (element) => {
+            const songName = li.querySelector(".info .song").innerText;
+            playMusic(songName + ".mp3");
+          });
+
+          resolve(li);
+        });
       });
+    }
+
+    const li = await createSongListItem(song, currSongFolder);
+    songUL.appendChild(li);
   }
 
   return songs;
@@ -71,8 +88,16 @@ const playMusic = (track, pause = false) => {
     play.src = "SVG/pause.svg";
   }
 
-  document.querySelector(".songThumbnail").innerHTML = `<img src = "${currThumbnailFolder}/${track.replace(".mp3","" )}.jpeg" alt = ""></img>`;
-  document.querySelector(".songName").innerHTML = decodeURI(track).replace(".mp3","");
+  document.querySelector(
+    ".songThumbnail"
+  ).innerHTML = `<img src = "${currThumbnailFolder}/${track.replace(
+    ".mp3",
+    ""
+  )}.jpeg" alt = ""></img>`;
+  document.querySelector(".songName").innerHTML = decodeURI(track).replace(
+    ".mp3",
+    ""
+  );
   document.querySelector(".songTime").innerHTML = "0:0/0:0";
 };
 
@@ -87,7 +112,7 @@ async function displayAlbums() {
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
     if (e.href.includes("/songs")) {
-      let folder = e.href.split("/").slice(-3)[0].replaceAll("%20"," ");
+      let folder = e.href.split("/").slice(-3)[0].replaceAll("%20", " ");
       //Get the metadata of the folder
       let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`);
       let response = await a.json();
@@ -166,33 +191,37 @@ document.querySelector(".hamburger").addEventListener("click", () => {
 document.querySelector(".close").addEventListener("click", () => {
   document.querySelector(".left").style.left = "-120%";
 });
-  
+
 //Attach an event listener to play to play & pause song
-  play.addEventListener("click", () => {
-    if (currentSong.paused) {
-      currentSong.play();
-      play.src = "SVG/pause.svg";
-    } else {
-      currentSong.pause();
-      play.src = "SVG/play.svg";
-    }
-  });
+play.addEventListener("click", () => {
+  if (currentSong.paused) {
+    currentSong.play();
+    play.src = "SVG/pause.svg";
+  } else {
+    currentSong.pause();
+    play.src = "SVG/play.svg";
+  }
+});
 
 //add event listener to previous & repeat even after the playlist comes to start point
 previous.addEventListener("click", () => {
   currentSong.pause();
-  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0].replaceAll("%20"," "));
+  let index = songs.indexOf(
+    currentSong.src.split("/").slice(-1)[0].replaceAll("%20", " ")
+  );
   if (index - 1 >= 0) {
     playMusic(songs[index - 1]);
   } else {
-    playMusic(songs[(songs.length - 1)]);
+    playMusic(songs[songs.length - 1]);
   }
 });
 
 //add event listener to next & repeat even after the playlist ends
 next.addEventListener("click", () => {
   currentSong.pause();
-  let index = songs.indexOf(currentSong.src.split("/").slice(-1)[0].replaceAll("%20"," "));
+  let index = songs.indexOf(
+    currentSong.src.split("/").slice(-1)[0].replaceAll("%20", " ")
+  );
   if (index + 1 < songs.length) {
     playMusic(songs[index + 1]);
   } else {
@@ -207,37 +236,34 @@ document
   .addEventListener("change", (e) => {
     console.log("Setting volume to", e.target.value);
     currentSong.volume = parseInt(e.target.value) / 100;
-    if(currentSong.volume == 0){
-        document.querySelector(".volume > img").src = "SVG/mute.svg";
-    }
-    else if (currentSong.volume > 0 && currentSong.volume <= 0.5 ) {
+    if (currentSong.volume == 0) {
+      document.querySelector(".volume > img").src = "SVG/mute.svg";
+    } else if (currentSong.volume > 0 && currentSong.volume <= 0.5) {
       document.querySelector(".volume > img").src = "SVG/lowVolume.svg";
-    }
-    else{
-        document.querySelector(".volume > img").src = "SVG/highVolume.svg";
+    } else {
+      document.querySelector(".volume > img").src = "SVG/highVolume.svg";
     }
   });
 
 //add 2 event listeners to mute, decrease, or increase the volume by clicking on volume button
 document.querySelector(".volume > img").addEventListener("click", (e) => {
-  console.log(e.target);
   if (e.target.src.includes("SVG/mute.svg")) {
     e.target.src = "SVG/lowVolume.svg";
     currentSong.volume = 0.5;
     document
       .querySelector(".range")
       .getElementsByTagName("input")[0].value = 50;
-  } 
-  else if(e.target.src.includes("SVG/lowVolume.svg")){
+  } else if (e.target.src.includes("SVG/lowVolume.svg")) {
     e.target.src = "SVG/HighVolume.svg";
     currentSong.volume = 1;
     console.log(currentSong.volume);
-    document.querySelector(".range").getElementsByTagName("input")[0].value = 100;
-  }
-  else{
-     e.target.src = "SVG/mute.svg";
+    document
+      .querySelector(".range")
+      .getElementsByTagName("input")[0].value = 100;
+  } else {
+    e.target.src = "SVG/mute.svg";
     currentSong.volume = 0;
     console.log(currentSong.volume);
     document.querySelector(".range").getElementsByTagName("input")[0].value = 0;
   }
-})
+});

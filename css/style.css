@@ -23,6 +23,7 @@
 body {
   background-color: black;
   color: white;
+  overflow: hidden;
 }
 
 .header {
@@ -375,7 +376,7 @@ body {
   justify-content: center;
   align-items: center;
   position: fixed;
-  bottom: 20px;
+  bottom: 2.4vh;
   background-color: #802727;
   border-radius: 10px;
   padding: 6px;
@@ -814,7 +815,7 @@ body {
   }
 
   .right {
-    width : 100vw;
+    width : 127vw;
     height : 91.5vh;
   } 
 

@@ -3,6 +3,8 @@ let songs;
 let currSongFolder;
 let currThumbnailFolder;
 
+const basePath = window.location.pathname.split("/")[1] ? `/${window.location.pathname.split("/")[1]}` : "";
+
 function formatSecondsToMinutes(seconds) {
   const mins = Math.floor(seconds / 60);
   const secs = seconds % 60;
@@ -15,7 +17,7 @@ function formatSecondsToMinutes(seconds) {
 
 async function getSongs(folder) {
   currSongFolder = folder;
-  let a = await fetch(`/Spotify-Clone/${folder}/`);
+  let a = await fetch(`${basePath}/${folder}/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -102,7 +104,7 @@ const playMusic = (track, pause = false) => {
 };
 
 async function displayAlbums() {
-  let a = await fetch(`/Spotify-Clone/songs/`);
+  let a = await fetch(`${basePath}/songs/`);
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -114,7 +116,7 @@ async function displayAlbums() {
     if (e.href.includes("/songs")) {
       let folder = e.href.split("/").slice(-3)[0].replaceAll("%20", " ");
       //Get the metadata of the folder
-      let a = await fetch(`/Spotify-Clone/songs/${folder}/info.json`);
+      let a = await fetch(`${basePath}/songs/${folder}/info.json`);
       let response = await a.json();
       cardContainer.innerHTML =
         cardContainer.innerHTML +

@@ -145,7 +145,7 @@ async function displayAlbums() {
 
 async function main() {
   //Get the list of all songs
-  await getSongs("songs/Arijit_Singh");
+  await getSongs("songs/Arijit");
   playMusic(songs[0], true);
 
   //Display the albums on the page
